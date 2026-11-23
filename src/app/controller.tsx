@@ -1,16 +1,18 @@
+import { LinearGradient } from "expo-linear-gradient";
 import { DeviceMotion } from "expo-sensors";
 import { useEffect, useRef, useState } from "react";
 import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 type stateType = "Stop" | "Backwards" | "Forwards" | "ForceStop"
 
-export default function Index() {
+export default function Controller() {
   const [inclitation, setInclination] = useState(0)
   const [rawData, setRawData] = useState({alpha: 0, beta: 0, gamma: 0, timestamp: 0}) //for test
   const [state, setState] = useState<stateType>("Stop")
   const [push, setPush] = useState(false)
   const [connected, setConnected] = useState(false)
 
+  const power = useRef(0)
   const zeroAngle = useRef<number | null>(null)
   const actualAnlge = useRef(0)
   const isPushing = useRef(false)
@@ -59,6 +61,9 @@ export default function Index() {
       if (!isPushing.current || zeroAngle.current === null) return
       const angleDiff = zeroAngle.current - beta
       setInclination(angleDiff)
+      const newPower = angleDiff * 100 / 30
+      power.current = newPower
+      
       
       const angleMargin = 8
       let newState: stateType = "Stop"
@@ -76,8 +81,6 @@ export default function Index() {
 
 
     })
-    // Gamma: x 
-    // Beta: y
 
     return () => {
       subscription.remove()
@@ -112,13 +115,33 @@ export default function Index() {
       <Pressable
       onPressIn={startPush}
       onPressOut={endPush}
-      style={[styles.container, {backgroundColor: push ? '#a4ff67' : '#6cbfff'}]}
+      style={[styles.container]}
       >
+        {
+          state === "Forwards" && (
+            <LinearGradient colors={['rgba(95, 251, 241, 0.85)', 'rgba(139, 241, 234, 0)']}
+            start={{x: 0.5, y: 0}}
+            end={{x: 0.5, y: 1}}
+            style={styles.upBorder}
+            locations={[0, 0.01 * power.current, 1]}
+            />
+          )
+        }
+        
+        
+        {
+          state === "Backwards" && (
+            <LinearGradient colors={['rgba(251, 123, 95, 0.85)', 'rgba(139, 241, 234, 0)']}
+            start={{x: 0.5, y: 1}}
+            end={{x: 0.5, y: 0}}
+            style={styles.downBorder}
+            locations={[0, power.current * -0.01 ,1]}
+            />
+          )
+        }
+        
       
-        <Text>This will show info from the acelerometer</Text>
-        <Text>Beta (adelante/adetras) {inclitation}</Text>
-        <Text>Current state: {state}</Text>
-        <Text>{rawData.alpha} alpha, {rawData.beta} beta, {rawData.gamma} gamma, {rawData.timestamp} timeStamp</Text>
+        <Text>Mantain the tap and rotate the phone</Text>
       
       </Pressable>
       <View style={styles.buttonBar}>
@@ -144,5 +167,17 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 55,
     right: 20
+  },
+  upBorder: {
+    position: 'absolute',
+    top: 0,
+    height: 160,
+    width: '100%'
+  },
+  downBorder: {
+    position: 'absolute',
+    bottom: 0,
+    height: 160,
+    width: '100%'
   }
 });
