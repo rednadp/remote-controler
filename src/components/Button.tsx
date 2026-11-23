@@ -10,9 +10,6 @@ export function Button ({text, onPress}: props) {
 
     const [push, setPush] = useState(false)
 
-
-
-
     return (
         <Pressable
         onPress={onPress}
@@ -37,6 +34,7 @@ const styles = StyleSheet.create({
         marginHorizontal: '15%',
         paddingRight: 8,
         paddingBottom: 8,
+        marginBottom: 20
     },
     front: {
         backgroundColor: '#D9D9D9',

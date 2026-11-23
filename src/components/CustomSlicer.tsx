@@ -1,24 +1,55 @@
+import { useState } from "react"
 import { StyleSheet, Text, View } from "react-native"
 
+type Props = {
+    text: string,
+    min: number,
+    max: number,
+    value: number,
+    onChange: (value: number) => void
+}
 
-export function CustomSlicer() {
+export function CustomSlicer({text, min, max, value, onChange}: Props) {
+    const [barWidth, setBarWidth] = useState(0)
+
+    const blockSize = 44
+
+    const progress = Math.max(0, Math.min((value - min) / (max - min), 1))
+    
+    const onTouch = (x: number) => {
+        if (barWidth === 0) return
+        
+        const realBarSize = barWidth - blockSize
+        const filterX = Math.max(0, Math.min(x - blockSize / 2, realBarSize))
+        const roundedX = Math.round(min + (filterX / realBarSize) * (max - min))
+        onChange(roundedX)
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.title}>
-                <Text style={styles.titleText}>Angle:</Text>
-                <Text style={styles.titleValue}>54º</Text>
+                <Text style={styles.titleText}>{text}</Text>
+                <Text style={styles.titleValue}>{value}º</Text>
             </View>
             <View style={styles.touchArea}
-            
+            onLayout={(e) => {setBarWidth(e.nativeEvent.layout.width)}}
+            onStartShouldSetResponder={() => true}
+            onResponderGrant={(e) => {onTouch(e.nativeEvent.locationX)}}
+            onResponderMove={(e) => {onTouch(e.nativeEvent.locationX)}}
             >
-                <View style={styles.bar}></View>
-                <View style={styles.block}></View>
+                <View style={styles.bar} pointerEvents="none"></View>
+                <View style={[styles.block,
+                    {
+                        height: blockSize,
+                        width: blockSize,
+                        left: barWidth > 0 ? progress * (barWidth - blockSize) : 0
+                    }
+                ]} pointerEvents="none"></View>
             </View>
-            <View style={styles.containerMinMax}>
-                <Text style={styles.minMaxItem}>20º</Text>
-                <Text style={styles.minMaxItem}>60º</Text>
+            <View pointerEvents="none" style={styles.containerMinMax}>
+                <Text style={styles.minMaxItem}>{min}º</Text>
+                <Text pointerEvents="none" style={styles.minMaxItem}>{max}º</Text>
             </View>
-
         </View>
     )
 }
@@ -54,8 +85,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     block: {
-        height: 44,
-        width: 44,
         position: 'absolute',
         backgroundColor: '#FF9E9E'
     },
