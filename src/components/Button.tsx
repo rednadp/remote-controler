@@ -1,4 +1,3 @@
-import { Jost_600SemiBold, useFonts } from '@expo-google-fonts/jost'
 import { useState } from 'react'
 import { Pressable, StyleSheet, Text, View } from "react-native"
 
@@ -10,11 +9,7 @@ type props = {
 export function Button ({text, onPress}: props) {
 
     const [push, setPush] = useState(false)
-    const [fonts] = useFonts({
-        Jost_600SemiBold
-    })
 
-    if (!fonts) return
 
 
 

@@ -17,7 +17,13 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.BLUETOOTH",
+        "android.permission.BLUETOOTH_ADMIN",
+        "android.permission.BLUETOOTH_CONNECT"
+      ],
+      "package": "com.rednadp.remotecontroler"
     },
     "web": {
       "output": "server",
@@ -33,11 +39,22 @@
           "imageWidth": 76
         }
       ],
-      "expo-font"
+      "expo-font",
+      "react-native-ble-plx"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "5629dcd4-9962-4af1-bc36-0e8a593c99ad"
+      }
     }
   }
 }

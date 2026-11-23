@@ -59,13 +59,16 @@ export default function Controller() {
       actualAnlge.current = beta
 
       if (!isPushing.current || zeroAngle.current === null) return
+
+      const maxAngle = 40
+
       const angleDiff = zeroAngle.current - beta
-      setInclination(angleDiff)
-      const newPower = angleDiff * 100 / 30
+      const newPower = Math.abs(angleDiff * 100 / maxAngle)
+      setInclination(newPower)
       power.current = newPower
       
       
-      const angleMargin = 8
+      const angleMargin = 4
       let newState: stateType = "Stop"
       if (angleDiff > angleMargin) {
         newState = "Forwards"
@@ -119,11 +122,10 @@ export default function Controller() {
       >
         {
           state === "Forwards" && (
-            <LinearGradient colors={['rgba(95, 251, 241, 0.85)', 'rgba(139, 241, 234, 0)']}
+            <LinearGradient colors={[`rgba(95, 251, 241, ${inclitation * 0.01 * 0.85})`, 'rgba(139, 241, 234, 0)']}
             start={{x: 0.5, y: 0}}
             end={{x: 0.5, y: 1}}
             style={styles.upBorder}
-            locations={[0, 0.01 * power.current, 1]}
             />
           )
         }
@@ -131,11 +133,10 @@ export default function Controller() {
         
         {
           state === "Backwards" && (
-            <LinearGradient colors={['rgba(251, 123, 95, 0.85)', 'rgba(139, 241, 234, 0)']}
+            <LinearGradient colors={[`rgba(251, 123, 95, ${inclitation * 0.01 * 0.85})`, 'rgba(251, 123, 95, 0)']}
             start={{x: 0.5, y: 1}}
             end={{x: 0.5, y: 0}}
             style={styles.downBorder}
-            locations={[0, power.current * -0.01 ,1]}
             />
           )
         }
@@ -166,7 +167,6 @@ const styles = StyleSheet.create({
   buttonBar: {
     position: 'absolute',
     bottom: 55,
-    right: 20
   },
   upBorder: {
     position: 'absolute',
