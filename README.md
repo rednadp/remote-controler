@@ -1,56 +1,15 @@
-# Welcome to your Expo app 👋
+# Remote Controller
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is a remote controller for a Bluetooth device (ex: esp32) that relays on the phone's motion sensors. With a nice ui you can control your device in an easy way.
 
-## Get started
+# Why this proyect?
 
-1. Install dependencies
+Well, in the past I did a mini Beest robot [mini Beest robot](https://github.com/rednadp/Robocar), but I didn't do a controller for it. So, one day I thought it would be an amazing idea to control it with the phone, but instead of with a joystick or something similar, with the motion sensors.
 
-   ```bash
-   npm install
-   ```
+# What I have learned
 
-2. Start the app
+Well, in this project I have foucused more on the ui that on the Bluetooth functionality to be honest. Even more, I haven't even had time to try it in real life. I will do it in the near future. However, my intention was to learn how to do a nicer ui than my previous one and to learn how to use the motion sensors.
 
-   ```bash
-   npx expo start
-   ```
+# How to use it
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
-
-### Other setup steps
-
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Well, I have stablish the UUID that I have found in google that are the default for arduinos and thinks like that. So, the app will connect to the selected device and sent "STOP", "FORWARD", "BACKWARD" in those channels in base64. However, que UUID can be changed in the controller.tsx file if needed.

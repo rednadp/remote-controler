@@ -132,7 +132,7 @@ export default function Controller() {
         }
         
       
-        <Text>Mantain the tap and rotate the phone</Text>
+        <Text>Press and hold, then rotate the phone</Text>
       
       </Pressable>
   
