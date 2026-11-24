@@ -21,7 +21,7 @@ Well, in this project I have foucused more on the ui that on the Bluetooth funct
 
 # How to use it
 
-Well, I have stablish the UUID that I have found in google that are the default for arduinos and thinks like that. So, the app will connect to the selected device and sent "STOP", "FORWARD", "BACKWARD" in those channels in base64. However, que UUID can be changed in the controller.tsx file if needed.
+Well, I have stablish the UUID that I have found in google that are the default for arduinos and thinks like that. So, the app will connect to the selected device and sent "STOP", "FORWARD", "BACKWARD" in those channels in base64. However, que UUID can be changed in the controller.tsx file if needed (service_UUID and characteristic_UUID variables).
 # Photos
 <img width="1080" height="2340" alt="Screenshot_20261124_033213_remote-controler" src="https://github.com/user-attachments/assets/23360024-a31d-4e72-a477-f04098c44420" />
 <img width="1080" height="2340" alt="Screenshot_20261124_033218_remote-controler" src="https://github.com/user-attachments/assets/5627eec7-7d39-4c98-a800-1b4b67a8cca1" />
