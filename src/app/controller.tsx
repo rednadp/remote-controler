@@ -1,7 +1,8 @@
+import { settings } from '@/store';
 import { LinearGradient } from "expo-linear-gradient";
 import { DeviceMotion } from "expo-sensors";
 import { useEffect, useRef, useState } from "react";
-import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 type stateType = "Stop" | "Backwards" | "Forwards" | "ForceStop"
 
@@ -18,36 +19,24 @@ export default function Controller() {
   const isPushing = useRef(false)
   const lastState = useRef<stateType>("Stop")
 
-  const ws = useRef<WebSocket | null>(null)
+  const service_UUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
+  const characteristic_UUID = "beb5483e-36e1-4688-b7f5-ea07361b26a8"
 
-  const sentToCar = (stateToSent: stateType) => {
-    if (ws.current && ws.current.readyState === WebSocket.OPEN)
-      ws.current.send(stateToSent)
-  }
+  const sentToCar = async (stateToSent: stateType) => {
+    if (!settings.device) return
 
-  const connectToCar = () => {
-    if (ws.current) {
-      ws.current.close()
-    }
-
-    ws.current = new WebSocket('ws://192.168.4.1:81')
-
-    ws.current.onopen = () => {
-      setConnected(true)
-      console.log("Connected!")
-    }
-    
-    ws.current.onclose = () => {
-      setConnected(false)
-      console.log("Disconnected")
-    }
-
-    ws.current.onerror = (err) => {
-      setConnected(false)
-      console.log("error", err)
+    try {
+      await settings.device.writeCharacteristicWithoutResponseForService(
+        service_UUID,
+        characteristic_UUID,
+        btoa(stateToSent)
+      )
+    } catch (e) {
+      console.log("Error ble:", e)
     }
 
   }
+
 
   useEffect(() => {
     DeviceMotion.setUpdateInterval(100)
@@ -60,7 +49,7 @@ export default function Controller() {
 
       if (!isPushing.current || zeroAngle.current === null) return
 
-      const maxAngle = 40
+      const maxAngle = settings.maxAngle
 
       const angleDiff = zeroAngle.current - beta
       const newPower = Math.abs(angleDiff * 100 / maxAngle)
@@ -68,7 +57,8 @@ export default function Controller() {
       power.current = newPower
       
       
-      const angleMargin = 4
+      const angleMargin = settings.deadAngle
+
       let newState: stateType = "Stop"
       if (angleDiff > angleMargin) {
         newState = "Forwards"
@@ -87,7 +77,7 @@ export default function Controller() {
 
     return () => {
       subscription.remove()
-      ws.current?.close()
+      sentToCar("Stop")
     }
   }, [])
 
@@ -145,15 +135,7 @@ export default function Controller() {
         <Text>Mantain the tap and rotate the phone</Text>
       
       </Pressable>
-      <View style={styles.buttonBar}>
-        <TouchableOpacity
-        onPress={connectToCar}
-        >
-          <Text>
-            {connected ? "Connecter" : "Click to connect"}
-          </Text>
-        </TouchableOpacity>
-      </View>
+  
     </View>
   );
 }

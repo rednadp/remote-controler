@@ -7,7 +7,7 @@ export default function Index () {
     return (
         <View style={styles.container}>
             <Logo style={{marginBottom: 30}}/>
-            <Button text="Select device" onPress={() => {router.push('/controller')}}></Button>
+            <Button text="Select device" onPress={() => {router.push('/device')}}></Button>
             <Button text="Settings" onPress={() => {router.push('/config')}}></Button>
         </View>
     )
