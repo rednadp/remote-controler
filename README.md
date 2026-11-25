@@ -6,9 +6,6 @@
 </svg>
 <img width="264" height="99" alt="Group 3" src="https://github.com/user-attachments/assets/df38920e-10d6-43b0-afb3-adf2c459eff5" />
 
-
-
-
 This is a remote controller for a Bluetooth device (ex: esp32) that relays on the phone's motion sensors. With a nice ui you can control your device in an easy way.
 
 # Why this proyect?
@@ -21,17 +18,47 @@ Well, in this project I have foucused more on the ui that on the Bluetooth funct
 
 # How to use it
 
+This app connects via Bluetooth to an esp32, so unfortunatly there are more steps than usual as it is necessary to first flash an adecuated firmware to it. If you know what I'm talking about there is and example firmware on the firmware folder. You can use PlataformIO. More info of how to modify bellow.
+
+If you have never touched electronics this is your guide:
+
+## 1st step
+
+Download Aduino IDE (if you haven't it yet)
+
 Well, I have stablish the UUID that I have found in google that are the default for arduinos and thinks like that. So, the app will connect to the selected device and sent "STOP", "FORWARD", "BACKWARD" in those channels in base64. However, que UUID can be changed in the controller.tsx file if needed (service_UUID and characteristic_UUID variables).
+
+## Steps to flash the firmware without installing anything
+
+Disclamer: flasing from the browser can be unstable and I have only tested it with the lastest version of google chrome for windows. I don't know if it works in other browses/os systems.
+
+## 1st step
+
+Connect the esp32 with a data cable to the computer (Be aware that some cables only charge).
+
+## 2nd step
+
+Enter on [this](https://printpal.io/tools/esp32-web-flasher) website. No need to install things, no need to register.
+
+## 3rd step
+
+Upload the firmware.bin, partitions.bin and bootloader that are avaiable on the [releases](https://github.com/rednadp/remote-controler/releases/). (the firmware zip).
+
+## 4th step
+
+Click on the esp32 board and on connect. Select the port were the esp32 is connected (something that says usb). Then click on flash my board.
+
+## 5th step
+
+Check everything is okey. For that beloow to the serial monitor and click restart boad. After that, if the firmware is installed correctly it should appear: ESP32 ready, listening for connetionss. If this does not appear something went wrong.
+
 # Photos
+
 <img width="1080" height="2340" alt="Screenshot_20261124_033213_remote-controler" src="https://github.com/user-attachments/assets/23360024-a31d-4e72-a477-f04098c44420" />
 <img width="1080" height="2340" alt="Screenshot_20261124_033218_remote-controler" src="https://github.com/user-attachments/assets/5627eec7-7d39-4c98-a800-1b4b67a8cca1" />
 <img width="1080" height="2340" alt="Screenshot_20261124_033222_remote-controler" src="https://github.com/user-attachments/assets/ae7db7f0-ed4a-4e40-90aa-893e8f3ea2d8" />
 
-
-https://github.com/user-attachments/assets/89c80862-8883-4583-a513-77f9420f61c0
+<https://github.com/user-attachments/assets/89c80862-8883-4583-a513-77f9420f61c0>
 
 <img width="1080" height="2340" alt="Screenshot_20261124_033236_remote-controler" src="https://github.com/user-attachments/assets/b1c48e4f-586b-48c6-877c-4a5820554023" />
 <img width="1080" height="2340" alt="Screenshot_20261124_033228_remote-controler" src="https://github.com/user-attachments/assets/5605567d-940c-4e6a-b682-a4791e713a49" />
-
-
-
