@@ -18,19 +18,15 @@ Well, in this project I have foucused more on the ui that on the Bluetooth funct
 
 # How to use it
 
-This app connects via Bluetooth to an esp32, so unfortunatly there are more steps than usual as it is necessary to first flash an adecuated firmware to it. If you know what I'm talking about there is and example firmware on the firmware folder. You can use PlataformIO. More info of how to modify bellow.
+This app connects via Bluetooth to an esp32, so unfortunately there are more steps than usual, as it is necessary to first flash an adequated firmware to it. If you know what I'm talking about there is an example firmware in the firmware folder. You can use PlataformIO. More info on how to modify it below. (There's also a version prepared for arduino IDE on the releases page).
 
 If you have never touched electronics this is your guide:
 
-## 1st step
-
-Download Aduino IDE (if you haven't it yet)
-
-Well, I have stablish the UUID that I have found in google that are the default for arduinos and thinks like that. So, the app will connect to the selected device and sent "STOP", "FORWARD", "BACKWARD" in those channels in base64. However, que UUID can be changed in the controller.tsx file if needed (service_UUID and characteristic_UUID variables).
-
 ## Steps to flash the firmware without installing anything
 
-Disclamer: flasing from the browser can be unstable and I have only tested it with the lastest version of google chrome for windows. I don't know if it works in other browses/os systems.
+Disclaimer: flasing from the browser can be unstable and I have only tested it with the latest version of google chrome for windows. I don't know if it works in other browses/os systems.
+
+And, of course, you will need an esp32.
 
 ## 1st step
 
@@ -42,15 +38,21 @@ Enter on [this](https://printpal.io/tools/esp32-web-flasher) website. No need to
 
 ## 3rd step
 
-Upload the firmware.bin, partitions.bin and bootloader that are avaiable on the [releases](https://github.com/rednadp/remote-controler/releases/). (the firmware zip).
+Upload the `firmware.bin`, `partitions.bin` and `bootloader.bin` that are avaiable on the [releases](https://github.com/rednadp/remote-controler/releases/). (inside the `firmware.zip`).
 
 ## 4th step
 
-Click on the esp32 board and on connect. Select the port were the esp32 is connected (something that says usb). Then click on flash my board.
+Click on the esp32 board and on connect. Select the port where the esp32 is connected (something that says usb). Then click on flash my board.
 
 ## 5th step
 
-Check everything is okey. For that beloow to the serial monitor and click restart boad. After that, if the firmware is installed correctly it should appear: ESP32 ready, listening for connetionss. If this does not appear something went wrong.
+Check everything is okey. Go below to the serial monitor and click restart board. After that, if the firmware is installed correctly it should appear: `ESP32 ready, listening for connetionss`. If this does not appear something is wrong.
+
+## Demo video
+
+## For experimented users
+
+The app works by sending "Stop", "Forwards", "Backwards" codified in Base64 via Bluetooth (in the no response mode). It uses the UUID that are established on the controller.tsx file (service_UUID and characteristic_UUID variables). By default, the app will send on the `4fafc201-1fb5-459e-8fcc-c5c9c331914b` service uuid and on the `beb5483e-36e1-4688-b7f5-ea07361b26a8` characteristic uuid. Feel free to modify it.
 
 # Photos
 
