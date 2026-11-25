@@ -40,13 +40,35 @@ Enter on [this](https://printpal.io/tools/esp32-web-flasher) website. No need to
 
 Upload the `firmware.bin`, `partitions.bin` and `bootloader.bin` that are avaiable on the [releases](https://github.com/rednadp/remote-controler/releases/). (inside the `firmware.zip`).
 
+
+<img width="659" height="359" alt="Captura de pantalla 2026-11-25 203429" src="https://github.com/user-attachments/assets/f4027cac-8833-4457-bb3a-0054d8cfeb6b" />
+<img width="537" height="341" alt="image" src="https://github.com/user-attachments/assets/85473b69-2818-4288-96bb-4132b6f557f5" />
+
+
 ## 4th step
 
 Click on the esp32 board and on connect. Select the port where the esp32 is connected (something that says usb). Then click on flash my board.
 
+<img width="538" height="225" alt="image" src="https://github.com/user-attachments/assets/918c8ac3-462e-42ed-b485-7e4ecdfac193" />
+
+<img width="338" height="332" alt="2" src="https://github.com/user-attachments/assets/b416b838-e292-4310-9d8b-a426a96be865" />
+
+<img width="547" height="301" alt="image" src="https://github.com/user-attachments/assets/35018750-fe2a-4f61-a0bb-c083ccfd1c43" />
+
+<img width="539" height="227" alt="image" src="https://github.com/user-attachments/assets/89b9b16f-79c4-4d61-8bd2-a53a6d92e2d6" />
+
+
 ## 5th step
 
 Check everything is okey. Go below to the serial monitor and click restart board. After that, if the firmware is installed correctly it should appear: `ESP32 ready, listening for connetionss`. If this does not appear something is wrong.
+<img width="542" height="212" alt="image" src="https://github.com/user-attachments/assets/a13464c9-e4e9-4e0b-8cdc-4e7f94d81a3c" />
+<img width="836" height="390" alt="image" src="https://github.com/user-attachments/assets/f4757882-eaa1-4934-8254-a84abe70c4e3" />
+<img width="827" height="336" alt="image" src="https://github.com/user-attachments/assets/c386c385-e4ca-4687-8959-346f622befdb" />
+
+After that, you should be able to see `ESP32-Car` device on the app (which you can find the apk on the release section btw). Once connected, if you maintaing pressing the screen and rotate the phone you should see these logs:
+<img width="814" height="322" alt="image" src="https://github.com/user-attachments/assets/e5c17064-f0f9-439c-aff4-51886573642e" />
+
+That means that the esp32 is receiving the app orders!! congrats. By default, when rotating the phone to the front, it changes the voltage of pin 25 to high, and when the phone is rotated to the back, it changes pin 26 to high. By using these signals you can connect the esp32 to a motor's diver to control the motor. In this way you will able to control things like robots with the app! The esp32 behavior can be changed freely to do whatever you want, this is only an example.
 
 ## Demo video
 
